@@ -8,7 +8,7 @@ import Logout from "./Pages/Logout";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Contact from "./Pages/Contact";
-import Profile from "./Pages/Profile";
+// import Profile from "./Pages/Profile";
 
 function AppRoutes() {
   return (
@@ -22,7 +22,7 @@ function AppRoutes() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </>
   );
