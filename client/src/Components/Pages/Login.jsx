@@ -4,20 +4,17 @@ import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:3000/login", { email, password })
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
-  };
-
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
+
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  })
+  const loginUser = (e) =>{
+    e.preventDefault()
+  }
   return (
     <div className="login">
       <h4>
@@ -34,25 +31,28 @@ function Login() {
         name="normal_login"
         className="login-form"
         onFinish={onFinish}
-        onSubmit={handleSubmit}
+        onSubmit={loginUser}
       >
         <Form.Item
-          name="username"
+          name="Email"
+          value = {data.email}
+          onChange = {(e) => setData({...data, email: e.target.value})}
           rules={[
             {
               required: true,
-              message: "Please input your Username!",
+              message: "Please input your Email!",
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
           />
         </Form.Item>
         <Form.Item
           name="password"
+          value = {data.password}
+          onChange = {(e) => setData({...data, password: e.target.value})}
           rules={[
             {
               required: true,
@@ -64,7 +64,6 @@ function Login() {
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Item>
         <Form.Item>

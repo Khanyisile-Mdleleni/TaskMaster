@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  {React, useState} from "react";
 import { Link } from "react-router-dom";
 import { Form, Input, Checkbox, Button } from "antd";
 
@@ -21,6 +21,16 @@ function Signup() {
     vertical: true,
   };
 
+// -----------------------------Register-user------------------------------------------------------
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
+  const registerUser = (e) => {
+   e.preventDefault()
+  } 
+
   return (
     <div className="signup">
       <h4>Sign Up for TaskMaster</h4>
@@ -42,15 +52,33 @@ function Signup() {
         form={form}
         name="register"
         onFinish={onFinish}
+        onSubmit={registerUser}
         initialValues={{
-          prefix: "86",
+          prefix: "86"
         }}
         style={{ maxWidth: 400 }}
       >
         <Form.Item
           {...formItemLayout}
+          name="Name"
+          label="Name"
+          value ={data.name}
+          onChange = {(e) => setData({...data, name: e.target.value})}
+          rules={[
+            {
+              required: true,
+              message: "Please input your name.",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
           name="email"
           label="E-mail"
+          value ={data.email}
+          onChange = {(e) => setData({...data, email: e.target.value})}
           rules={[
             {
               type: "email",
@@ -69,34 +97,13 @@ function Signup() {
           {...formItemLayout}
           name="password"
           label="Password"
+          value = {data.password}
+          onChange = {(e) => setData({...data, password: e.target.value})}
           rules={[
             {
               required: true,
               message: "Please input your password.",
             },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          {...formItemLayout}
-          name="confirm"
-          label="Confirm Password"
-          dependencies={["password"]}
-          rules={[
-            {
-              required: true,
-              message: "Please confirm your password.",
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject("The passwords do not match.");
-              },
-            }),
           ]}
         >
           <Input.Password />
