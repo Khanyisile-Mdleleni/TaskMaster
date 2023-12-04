@@ -1,36 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Form, Input, Checkbox, Button } from "antd";
-import { auth, provider } from "./config";
-import { signInWithPopup } from "firebase/auth";
-import axios from "axios";
 
 function Signup() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:3000/signup", { email, password })
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
-  };
-
-  // --------------------------SignUp with Google (Firebase)--------------------------------------------------
-
-  const [value, setValue] = useState("");
-  const handleClick = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      setValue(data.user.email);
-      localStorage.setItem("email", data.user.email);
-    });
-  };
-
-  useEffect(() => {
-    setValue(localStorage.getItem("email"));
-  }, []);
-
   // ---------------------------Form Fields---------------------------------------------------------
 
   const [form] = Form.useForm();
@@ -70,7 +42,6 @@ function Signup() {
         form={form}
         name="register"
         onFinish={onFinish}
-        onSubmit={handleSubmit}
         initialValues={{
           prefix: "86",
         }}
@@ -80,7 +51,6 @@ function Signup() {
           {...formItemLayout}
           name="email"
           label="E-mail"
-          onChange={(e) => setEmail(e.target.value)}
           rules={[
             {
               type: "email",
@@ -99,7 +69,6 @@ function Signup() {
           {...formItemLayout}
           name="password"
           label="Password"
-          onChange={(e) => setPassword(e.target.value)}
           rules={[
             {
               required: true,
@@ -164,7 +133,7 @@ function Signup() {
       </div>
 
       <div className="auth-btn">
-        <Button onClick={handleClick}>
+        <Button>
           <i className="fab fa-google"></i> Continue with Google
         </Button>
       </div>
