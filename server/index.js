@@ -1,9 +1,15 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
 const cors = require('cors') 
+const { mongoose } = require('mongoose')
 
+// DB Connection
+mongoose.connect(process.env.MONGO_URL)
+.then(() => console.log('database connected'))
+.catch(() => console.log('database not connected'))
+
+// Express Setup
 const app = express();
-
 
 app.use('/', require('./routes/authRoutes'))
 
