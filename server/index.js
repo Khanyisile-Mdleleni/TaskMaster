@@ -8,8 +8,10 @@ mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('database connected'))
 .catch((err) => console.log('database not connected', err))
 
-// Express Setup
 const app = express();
+
+// middleware
+app.use(express.json());
 
 app.use('/', require('./routes/authRoutes'))
 
